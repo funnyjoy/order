@@ -6,7 +6,7 @@ import com.jpetstore.order.domain.model.Order;
 
 public interface OrderService {
 
-    void insertOrder(Order order);
+    int insertOrder(Order order);
 
     Order getOrder(int orderId);
 

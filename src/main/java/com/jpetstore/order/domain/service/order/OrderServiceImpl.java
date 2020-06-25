@@ -53,14 +53,13 @@ public class OrderServiceImpl implements OrderService {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * com.jpetstore.order.domain.service.order.OrderService#insertOrder(com.jpetstore.order
-	 * .domain.model.Order)
+	 * @see com.jpetstore.order.domain.service.order.OrderService#insertOrder(com.
+	 * jpetstore.order .domain.model.Order)
 	 */
 	@Override
-	@Transactional
-	public void insertOrder(Order order) {
-		order.setOrderId(getNextId("ordernum"));
+	public int insertOrder(Order order) {
+		int orderId = getNextId("ordernum");
+		order.setOrderId(orderId);
 		for (int i = 0; i < order.getLineItems().size(); i++) {
 			LineItem lineItem = (LineItem) order.getLineItems().get(i);
 			Item item = new Item();
@@ -76,6 +75,7 @@ public class OrderServiceImpl implements OrderService {
 			lineItem.setOrderId(order.getOrderId());
 			lineItemRepository.insertLineItem(lineItem);
 		}
+		return orderId;
 	}
 
 	/*
@@ -103,8 +103,8 @@ public class OrderServiceImpl implements OrderService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.jpetstore.order.domain.service.order.OrderService#getOrdersByUsername(java.
-	 * lang.String)
+	 * com.jpetstore.order.domain.service.order.OrderService#getOrdersByUsername(
+	 * java. lang.String)
 	 */
 	@Override
 	public List<Order> getOrdersByUsername(String username) {
@@ -115,7 +115,8 @@ public class OrderServiceImpl implements OrderService {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * com.jpetstore.order.domain.service.order.OrderService#getNextId(java.lang.String)
+	 * com.jpetstore.order.domain.service.order.OrderService#getNextId(java.lang.
+	 * String)
 	 */
 	@Override
 	public int getNextId(String name) {

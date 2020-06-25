@@ -33,8 +33,8 @@ public class OrderController {
 	}
 
 	@RequestMapping(value = "/orders", method = RequestMethod.PUT)
-	public void insertOrder(@RequestBody Order order) {
+	public int insertOrder(@RequestBody Order order) {
 
-		orderService.insertOrder(order);
+		return orderService.insertOrder(order);
 	}
 }
