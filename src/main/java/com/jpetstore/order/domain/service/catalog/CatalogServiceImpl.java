@@ -18,6 +18,7 @@ package com.jpetstore.order.domain.service.catalog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,6 +27,7 @@ import com.jpetstore.order.domain.model.Item;
 /**
  * @author Eduardo Macarron
  */
+@RefreshScope
 @Service
 public class CatalogServiceImpl implements CatalogService {
 
