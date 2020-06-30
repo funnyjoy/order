@@ -18,15 +18,18 @@ package com.jpetstore.order.domain.service.catalog;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.jpetstore.order.domain.model.Item;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 /**
  * @author Eduardo Macarron
  */
+@EnableCircuitBreaker
 @RefreshScope
 @Service
 public class CatalogServiceImpl implements CatalogService {
@@ -37,9 +40,18 @@ public class CatalogServiceImpl implements CatalogService {
 	@Value("${product.service.url}")
 	private String PRODUCT_SERVICE_URL;
 
+	@HystrixCommand(fallbackMethod = "getItemFallback")
 	public Item getItem(String itemId) {
 
 		return restTemplate.getForObject(PRODUCT_SERVICE_URL + "/items/" + itemId, Item.class);
+	}
+
+	@SuppressWarnings("unused")
+	private Item getItemFallback(String itemId) {
+
+		Item item = new Item();
+		item.setItemId(itemId);
+		return item;
 	}
 
 	public void updateInventoryQuantity(Item item) {
@@ -47,8 +59,16 @@ public class CatalogServiceImpl implements CatalogService {
 		restTemplate.postForEntity(PRODUCT_SERVICE_URL + "/items/" + item.getItemId() + "/inventory", item, Void.class);
 	}
 
+	@HystrixCommand(fallbackMethod = "getInventoryQuantityFallback")
 	public int getInventoryQuantity(String itemId) {
 
 		return restTemplate.getForObject(PRODUCT_SERVICE_URL + "/items/" + itemId + "/inventory", Integer.class);
 	}
+
+	@SuppressWarnings("unused")
+	private int getInventoryQuantityFallback(String itemId) {
+
+		return -1;
+	}
+
 }
