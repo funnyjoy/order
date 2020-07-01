@@ -4,29 +4,3 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
-
-feign:
-  client:
-    config: 
-      catalog-api:
-        connectTimeout: 5000
-        readTimeout: 5000
-        loggerLevel: full
-  hystrix:
-    enabled: true
-
-hystrix:
-  command:
-    default:
-      execution.isolation.thread.timeoutInMilliseconds: 500
-      circuitBreaker.errorThresholdPercentage: 50
-      circuitBreaker.requestVolumeThreshold: 2
-      metrics.rollingStats.timeInMilliseconds: 10000
-      circuitBreaker.sleepWindowInMilliseconds: 5000
-
-logging:
-  level:
-    com.netflix.hystrix: debug
-    org.apache.http.impl: debug
-    com.jpetstore.order: debug
-    feign: debug
