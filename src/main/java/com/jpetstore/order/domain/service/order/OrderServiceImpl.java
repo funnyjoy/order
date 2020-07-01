@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 			Item item = new Item();
 			item.setItemId(lineItem.getItemId());
 			item.setQuantity(lineItem.getQuantity());
-			catalogService.updateInventoryQuantity(item);
+			catalogService.updateInventoryQuantity(item.getItemId(), item);
 		}
 
 		orderRepository.insertOrder(order);
