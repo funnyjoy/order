@@ -9,6 +9,6 @@ spring:
 logging:
   level:
     com.netflix.hystrix: debug
-    org.apache.http.impl: debug
+    org.apache.http.impl: warn
     com.jpetstore.order: debug
     feign: debug
