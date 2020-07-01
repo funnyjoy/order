@@ -4,3 +4,11 @@ spring:
   cloud:
     config:
       uri: http://localhost:8888
+      label: feign
+
+logging:
+  level:
+    com.netflix.hystrix: debug
+    org.apache.http.impl: debug
+    com.jpetstore.order: debug
+    feign: debug
