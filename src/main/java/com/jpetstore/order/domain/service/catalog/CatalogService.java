@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.jpetstore.order.domain.model.Item;
 
 @RefreshScope
-@FeignClient(name = "catalog-api", fallback = CatalogServiceFallback.class)
+@FeignClient(name = "PRODUCT", fallback = CatalogServiceFallback.class)
 @Service
 public interface CatalogService {
 
