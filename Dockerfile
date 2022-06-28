@@ -14,7 +14,7 @@ COPY target/${JAR_FILE} app.jar
 ENV PROFILE=local 
 ENV SPRING_CLOUD_CONFIG_URI=http://configserver:8888
 ENV ORDER_PORT=16061
-ENV DATASOURCE_URL=jdbc:mariadb://orderdb:23306/orderdb
+ENV DATASOURCE_URL=jdbc:mariadb://orderdb:3306/orderdb
 ENV DB_USERNAME=order
 ENV DB_PASSWORD=qwer1234
 ENV RABBITMQ_HOST=rabbitmq
