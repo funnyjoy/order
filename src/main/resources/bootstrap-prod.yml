@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      uri: ${SPRING_CLOUD_CONFIG_URI}
+
+logging:
+  level:
+    com.netflix.hystrix: debug
+    org.apache.http.impl: debug
+    com.jpetstore.order: debug
+    feign: debug
